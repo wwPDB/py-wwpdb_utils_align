@@ -15,7 +15,7 @@ Test cases for pairwise sequence alignment wrapper class.
 import logging
 import unittest
 
-from wwpdb.utils.align.alignlib import PairwiseAlign  # pylint: disable=no-name-in-module
+from wwpdb.utils.align.alignlib import PairwiseAlign  # pylint: disable=no-name-in-module,import-error
 from wwpdb.utils.align.SequenceExamples import SequenceExamples
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s]-%(module)s.%(funcName)s: %(message)s")
