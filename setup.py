@@ -17,7 +17,9 @@ from setuptools.command.build_ext import build_ext
 
 class CMakeExtension(Extension):
 
-    def __init__(self, name, sourcedir='', sources=[]):
+    def __init__(self, name, sourcedir='', sources=None):
+        if sources is None:
+            sources = []
         Extension.__init__(self, name, sources=sources)
         self.sourcedir = os.path.abspath(sourcedir)
 
@@ -28,8 +30,8 @@ class CMakeBuild(build_ext):
         try:
             out = subprocess.check_output(['cmake', '--version'])
         except OSError:
-            raise RuntimeError("CMake must be installed to build the following extensions: " +
-                               ", ".join(e.name for e in self.extensions))
+            raise RuntimeError("CMake must be installed to build the following extensions: "
+                               + ", ".join(e.name for e in self.extensions))
 
         if platform.system() == "Windows":
             cmake_version = LooseVersion(re.search(r'version\s*([\d.]+)', out.decode()).group(1))
@@ -48,8 +50,8 @@ class CMakeBuild(build_ext):
 
         # we need to help cmake find the correct python for this virtual env -
         if hasattr(sys, 'real_prefix'):
-            lsp = os.path.join(sys.real_prefix, 'lib', 'libpython') + "*"
-            isp = os.path.join(sys.real_prefix, 'include', 'python') + "%s.%s" % (sys.version_info.major, sys.version_info.minor) + "*"
+            lsp = os.path.join(sys.real_prefix, 'lib', 'libpython') + "*"  # pylint: disable=no-member
+            isp = os.path.join(sys.real_prefix, 'include', 'python') + "%s.%s" % (sys.version_info.major, sys.version_info.minor) + "*"  # pylint: disable=no-member
         else:
             lsp = os.path.join(sys.exec_prefix, 'lib', 'libpython') + "*"
             isp = os.path.join(sys.exec_prefix, 'include', 'python') + "%s.%s" % (sys.version_info.major, sys.version_info.minor) + "*"
@@ -84,7 +86,7 @@ class CMakeBuild(build_ext):
         if not os.path.exists(self.build_temp):
             os.makedirs(self.build_temp)
         #
-        if False:
+        if False:  # pylint: disable=using-constant-test
             print("------------------------------")
             print("Extension source path ", ext.sourcedir)
             print("CMAKE_ARGS ", cmake_args)
@@ -102,7 +104,6 @@ class CMakeBuild(build_ext):
 
 packages = []
 thisPackage = 'wwpdb.utils.align'
-#requires = ['future']
 requires = []
 
 

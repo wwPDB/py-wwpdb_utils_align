@@ -15,7 +15,7 @@ Test cases for pairwise sequence alignment wrapper class.
 import logging
 import unittest
 
-from wwpdb.utils.align.alignlib import PairwiseAlign
+from wwpdb.utils.align.alignlib import PairwiseAlign  # pylint: disable=no-name-in-module
 from wwpdb.utils.align.SequenceExamples import SequenceExamples
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s [%(levelname)s]-%(module)s.%(funcName)s: %(message)s')
@@ -44,19 +44,19 @@ class PairwiseAlignTests(unittest.TestCase):
     def testAlign1(self):
         """ Run internal alignment test embedded in the class -  This is a basic santity check.
         """
-        logger.info(" -------------------------\n")
+        logger.info(" -------------------------")
         try:
             pA = PairwiseAlign()
             pA.testExample()
         except Exception as e:
-            logger.exception("Failing with %s" % str(e))
+            logger.exception("Failing with %s", str(e))
             self.fail()
 
     def testAlign2(self):
         """ Run author vs reference sequence alignment returning a copy of the alignment
             via getAlignment() -
         """
-        logger.info("\n------------------------ ")
+        logger.info("------------------------")
         try:
             pA = PairwiseAlign()
             pA.setVerbose(self.__verbose)
@@ -64,28 +64,28 @@ class PairwiseAlignTests(unittest.TestCase):
             pA.addTestSequence(self.seqAuth3L, "A")
             pA.doAlign()
             pA.prAlignmentConflicts("A")
-            logger.info("Length of reference sequence = %d\n" % len(self.seqRef3L))
-            logger.info("Length of    author sequence = %d\n" % len(self.seqAuth3L))
+            logger.info("Length of reference sequence = %d", len(self.seqRef3L))
+            logger.info("Length of    author sequence = %d", len(self.seqAuth3L))
             myAlign = pA.getAlignment("A")
-            logger.info("Length   of alignment     = %d\n" % len(myAlign))
+            logger.info("Length   of alignment     = %d", len(myAlign))
             ii = 0
             jj = 0
             for myPr in myAlign:
                 if myPr[0] != myPr[1]:
-                    logger.debug("Py - conflict at alignment position %d  -  %s - %s\n" % (ii, myPr[0], myPr[1]))
+                    logger.debug("Py - conflict at alignment position %d  -  %s - %s", ii, myPr[0], myPr[1])
                     jj += 1
                 ii += 1
-            logger.info("Conflicts in alignment %d" % jj)
+            logger.info("Conflicts in alignment %d", jj)
             self.assertGreaterEqual(jj, 80)
         except Exception as e:
-            logger.exception("Failing with %s" % str(e))
+            logger.exception("Failing with %s", str(e))
             self.fail()
 
     def testAlign3(self):
         """  Consensus alignment for author and reference sequences.
              Returning the name of any sequence that is not part of the consensus.
         """
-        logger.info("\n------------------------ ")
+        logger.info("------------------------ ")
         try:
             pA = PairwiseAlign()
             pA.setVerbose(self.__verbose)
@@ -93,67 +93,67 @@ class PairwiseAlignTests(unittest.TestCase):
             pA.addTestSequence(self.seqAuth3L, "A")
             #
             myFails = pA.doAlignConsensus()
-            logger.info("Failed sequences = %d\n" % len(myFails))
+            logger.info("Failed sequences = %d", len(myFails))
             pA.prAlignmentConflicts("A")
-            logger.info("Length reference sequence = %d\n" % len(self.seqRef3L))
-            logger.info("Length    author sequence = %d\n" % len(self.seqAuth3L))
+            logger.info("Length reference sequence = %d", len(self.seqRef3L))
+            logger.info("Length    author sequence = %d", len(self.seqAuth3L))
             myAlign = pA.getAlignment("A")
-            logger.info("Length   of alignment     = %d\n" % len(myAlign))
+            logger.info("Length   of alignment     = %d", len(myAlign))
             ii = 0
             jj = 0
             for myPr in myAlign:
                 if myPr[0] != myPr[1]:
-                    logger.debug("Py - conflict position %8d  -  %3s - %3s\n" % (ii, myPr[0], myPr[1]))
+                    logger.debug("Py - conflict position %8d  -  %3s - %3s", ii, myPr[0], myPr[1])
                     jj += 1
                 ii += 1
-            logger.info("Conflicts in alignment %d" % jj)
+            logger.info("Conflicts in alignment %d", jj)
             self.assertGreaterEqual(jj, 80)
         except Exception as e:
-            logger.exception("Failing with %s" % str(e))
+            logger.exception("Failing with %s", str(e))
             self.fail()
 
     def testAlign4(self):
         """  Consensus alignment for reference and 5 test sequences
 
         """
-        logger.info("\n------------------------ ")
+        logger.info("------------------------")
         try:
             pA = PairwiseAlign()
             pA.setVerbose(self.__verbose)
             pA.setReferenceSequence(self.seqRef3L, "REFA")
             for k, v in self.sTests.items():
-                logger.debug("Added test sequence %10s len = %8d\n" % (k, len(v)))
+                logger.debug("Added test sequence %10s len = %8d", k, len(v))
                 pA.addTestSequence(v, k)
             #
             myFails = pA.doAlignConsensus()
-            logger.info("Failed sequences = %d\n" % len(myFails))
-            logger.info("Length reference sequence = %d\n" % len(self.seqRef3L))
+            logger.info("Failed sequences = %d", len(myFails))
+            logger.info("Length reference sequence = %d", len(self.seqRef3L))
             self.assertEqual(len(myFails), 0)
             #
         except Exception as e:
-            logger.exception("Failing with %s" % str(e))
+            logger.exception("Failing with %s", str(e))
             self.fail()
 
     def testAlign5(self):
         """  Consensus alignment for reference and 5 test sequences
 
         """
-        logger.info("\n------------------------ ")
+        logger.info("------------------------ ")
         try:
             pA = PairwiseAlign()
             pA.setVerbose(self.__verbose)
             pA.setReferenceSequence(self.seqRef3L, "REFA")
-            logger.info("Length reference sequence = %d\n" % len(self.seqRef3L))
+            logger.info("Length reference sequence = %d", len(self.seqRef3L))
             #
             for k, v in self.sTests.items():
-                logger.info("Added test sequence %10s len = %8d\n" % (k, len(v)))
+                logger.info("Added test sequence %10s len = %8d", k, len(v))
                 pA.addTestSequence(v, k)
             #
             myFails = pA.doAlignConsensus()
-            logger.info("Failed sequences = %d\n" % len(myFails))
+            logger.info("Failed sequences = %d", len(myFails))
             self.assertEqual(len(myFails), 0)
         except Exception as e:
-            logger.exception("Failing with %s" % str(e))
+            logger.exception("Failing with %s", str(e))
             self.fail()
 
 
@@ -169,6 +169,5 @@ def pairAlignSuite():
 
 if __name__ == '__main__':
     #
-    if True:
-        mySuite = pairAlignSuite()
-        unittest.TextTestRunner(verbosity=2).run(mySuite)
+    mySuite = pairAlignSuite()
+    unittest.TextTestRunner(verbosity=2).run(mySuite)
