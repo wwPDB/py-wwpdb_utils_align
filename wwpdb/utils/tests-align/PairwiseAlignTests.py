@@ -18,32 +18,30 @@ import unittest
 from wwpdb.utils.align.alignlib import PairwiseAlign  # pylint: disable=no-name-in-module
 from wwpdb.utils.align.SequenceExamples import SequenceExamples
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s [%(levelname)s]-%(module)s.%(funcName)s: %(message)s')
+logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s]-%(module)s.%(funcName)s: %(message)s")
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
 
 class PairwiseAlignTests(unittest.TestCase):
-
     def setUp(self):
         self.__verbose = True
         sE = SequenceExamples()
-        self.seqRef3L = sE.getRefSequence3List('A')
-        self.seqAuth3L = sE.getAuthSequenceList('A')
+        self.seqRef3L = sE.getRefSequence3List("A")
+        self.seqAuth3L = sE.getAuthSequenceList("A")
         #
         # Test sequence with random insertions and deletions
         #
         self.sTests = {}
-        for tt in ['T1', 'T2', 'T3', 'T4', 'T5']:
-            self.sTests[tt] = sE.getAuthSequenceListTest('A')
+        for tt in ["T1", "T2", "T3", "T4", "T5"]:
+            self.sTests[tt] = sE.getAuthSequenceListTest("A")
         #
 
     def tearDown(self):
         pass
 
     def testAlign1(self):
-        """ Run internal alignment test embedded in the class -  This is a basic santity check.
-        """
+        """Run internal alignment test embedded in the class -  This is a basic santity check."""
         logger.info(" -------------------------")
         try:
             pA = PairwiseAlign()
@@ -53,8 +51,8 @@ class PairwiseAlignTests(unittest.TestCase):
             self.fail()
 
     def testAlign2(self):
-        """ Run author vs reference sequence alignment returning a copy of the alignment
-            via getAlignment() -
+        """Run author vs reference sequence alignment returning a copy of the alignment
+        via getAlignment() -
         """
         logger.info("------------------------")
         try:
@@ -82,8 +80,8 @@ class PairwiseAlignTests(unittest.TestCase):
             self.fail()
 
     def testAlign3(self):
-        """  Consensus alignment for author and reference sequences.
-             Returning the name of any sequence that is not part of the consensus.
+        """Consensus alignment for author and reference sequences.
+        Returning the name of any sequence that is not part of the consensus.
         """
         logger.info("------------------------ ")
         try:
@@ -113,9 +111,7 @@ class PairwiseAlignTests(unittest.TestCase):
             self.fail()
 
     def testAlign4(self):
-        """  Consensus alignment for reference and 5 test sequences
-
-        """
+        """Consensus alignment for reference and 5 test sequences"""
         logger.info("------------------------")
         try:
             pA = PairwiseAlign()
@@ -135,9 +131,7 @@ class PairwiseAlignTests(unittest.TestCase):
             self.fail()
 
     def testAlign5(self):
-        """  Consensus alignment for reference and 5 test sequences
-
-        """
+        """Consensus alignment for reference and 5 test sequences"""
         logger.info("------------------------ ")
         try:
             pA = PairwiseAlign()
@@ -167,7 +161,7 @@ def pairAlignSuite():
     return suiteSelect
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     #
     mySuite = pairAlignSuite()
     unittest.TextTestRunner(verbosity=2).run(mySuite)

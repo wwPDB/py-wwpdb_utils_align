@@ -8,14 +8,23 @@ Version: .001 jdw
 
 
 class SequenceReferenceData(object):
-    """ This class contains reference data for identifying standard polymer types and
-        mapping residue nomenclature.
+    """This class contains reference data for identifying standard polymer types and
+    mapping residue nomenclature.
     """
-    _polymerEntityTypes = ['polypeptide(D)', 'polypeptide(L)', 'polydeoxyribonucleotide', 'polyribonucleotide',
-                           'polysaccharide(D)', 'polysaccharide(L)', 'polydeoxyribonucleotide/polyribonucleotide hybrid',
-                           'cyclic-pseudo-peptide', 'other']
 
-    _entityTypes = ['polymer', 'non-polymer', 'macrolide', 'water']
+    _polymerEntityTypes = [
+        "polypeptide(D)",
+        "polypeptide(L)",
+        "polydeoxyribonucleotide",
+        "polyribonucleotide",
+        "polysaccharide(D)",
+        "polysaccharide(L)",
+        "polydeoxyribonucleotide/polyribonucleotide hybrid",
+        "cyclic-pseudo-peptide",
+        "other",
+    ]
+
+    _entityTypes = ["polymer", "non-polymer", "macrolide", "water"]
 
     _monDict3 = {
         "ALA": "A",
@@ -52,7 +61,7 @@ class SequenceReferenceData(object):
         "I": "I",
         "T": "T",
         "U": "U",
-        "UNK": "X"
+        "UNK": "X",
     }
 
     _monDict1 = {
@@ -77,4 +86,5 @@ class SequenceReferenceData(object):
         "T": "THR",
         "W": "TRP",
         "Y": "TYR",
-        "V": "VAL"}
+        "V": "VAL",
+    }
