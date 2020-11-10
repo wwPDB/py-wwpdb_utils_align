@@ -1,6 +1,10 @@
+# Pairwise Sequence Alignment Tools
 
-## Pairwise Sequence Alignment Tools
+[![Build Status](https://dev.azure.com/wwPDB/wwPDB%20Python%20Projects/_apis/build/status/wwPDB.py-wwpdb_utils_align?branchName=master)](https://dev.azure.com/wwPDB/wwPDB%20Python%20Projects/_build/latest?definitionId=11&branchName=master)
 
+## Introduction
+
+This repository provides sequence alignment tools used by the OneDep system
 A collection of sequence alignment tools
 
 ### Installation
@@ -9,13 +13,11 @@ Download the library source software from the project repository:
 
 ```bash
 
-git clone --recurse-submodules https://github.com/wwpdb/py-wwpdb_utils_align.git
+git clone --recurse-submodules https://github.com/wwPDB/py-wwpdb_utils_align.git
 
 ```
 
-Optionally, run test suite (Python versions 2.7, 3.6, and 3.7) using
-[setuptools](https://setuptools.readthedocs.io/en/latest/) or
-[tox](http://tox.readthedocs.io/en/latest/example/platform.html):
+Optionally, run test suite using the Tox test runner
 
 ```bash
 python setup.py test
@@ -23,16 +25,14 @@ python setup.py test
 or simply run
 
 tox
-```
 
-Installation is via the program [pip](https://pypi.python.org/pypi/pip).  To run tests
-from the source tree, the package must be installed in editable mode (i.e. -e):
+Installation is via the program [pip](https://pypi.python.org/pypi/pip).
 
 ```bash
-pip install -e .
-
-or
-
 pip install wwpdb.utils.align
 
+or from the local repository:
+
+pip install .
+```
 ```
