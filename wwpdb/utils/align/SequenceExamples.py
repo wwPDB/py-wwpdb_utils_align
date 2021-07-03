@@ -1924,11 +1924,11 @@ class SequenceExamples(SequenceReferenceData):
         except Exception:
             pass
 
-    def __replace(self, seq3List, index, sInp):
-        try:
-            seq3List[index] = sInp
-        except Exception:
-            pass
+    # def __replace(self, seq3List, index, sInp):
+    #     try:
+    #         seq3List[index] = sInp
+    #     except Exception:
+    #         pass
 
     def __insert(self, seq3List, index, sInp):
         try:
