@@ -9,6 +9,7 @@ import platform
 import re
 import subprocess
 import sys
+import io
 from distutils.version import LooseVersion
 
 from setuptools import Extension, find_packages, setup
@@ -116,7 +117,7 @@ thisPackage = "wwpdb.utils.align"
 requires = []
 
 
-with open("wwpdb/utils/align/__init__.py", "r") as fd:
+with io.open("wwpdb/utils/align/__init__.py", "r", encoding="utf-8") as fd:
     version = re.search(r'^__version__\s*=\s*[\'"]([^\'"]*)[\'"]', fd.read(), re.MULTILINE).group(1)
 
 if not version:
