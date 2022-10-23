@@ -148,6 +148,14 @@ add_executable("align_test_2" "${SOURCE_TEST_DIR}/testPairwiseAlignZF.C")
 target_link_libraries("align_test_2" "align-all")
 target_include_directories("align_test_2" PUBLIC ${BUILD_INCLUDE_DIR})
 #
+add_executable("align_test_3" "${SOURCE_TEST_DIR}/testPseudoMultiAlign.C")
+target_link_libraries("align_test_3" "align-all")
+target_include_directories("align_test_3" PUBLIC ${BUILD_INCLUDE_DIR})
+#
+add_executable("align_test_4" "${SOURCE_TEST_DIR}/testRefSeqAlign.C")
+target_link_libraries("align_test_4" "align-all")
+target_include_directories("align_test_4" PUBLIC ${BUILD_INCLUDE_DIR})
+#
 #  -- Build a wrapper library  --
 #
 file(GLOB_RECURSE WRAP_SRC_FILES "${WRAP_DIR_1}/*.cpp")

@@ -50,11 +50,15 @@ class PseudoMultiAlign
        std::vector<std::vector<std::string> > _align_sequences;
 
        void _get_seq_index_linkage_info(const std::vector<std::vector<std::string> >& input_seqs, std::vector<std::string>& output_seqs,
-                                        std::vector<int>& auth_indices, std::vector<int>& embed_linkage);
+                                        std::vector<int>& auth_indices, std::vector<int>& embed_linkage, std::vector<int>& relative_numbering);
        void _multiple_alignment(const std::vector<std::string>& seqs, const std::vector<int>& auth_indices, const std::vector<int>& linkage,
-                                const unsigned int& begin_orig = 0, const unsigned int& end_orig = 0);
+                                const std::vector<int>& relative_numbering, const unsigned int& begin_orig = 0, const unsigned int& end_orig = 0);
        unsigned int _getConsensusSeq(std::vector<std::string>& seqs, const unsigned int& begin_orig, const unsigned int& end_orig,
                                      const unsigned int& extra);
+       void _check_alignment(void* data, const std::vector<int>& relative_numbering, std::vector<std::vector<int> >& ss);
+       bool _find_match_list(void* data, const std::vector<int>& relative_numbering, const std::vector<std::vector<int> >& ss,
+                             const std::vector<int>& block_range, const std::vector<int>& loop_range, const std::vector<int>& prev_block,
+                             const std::vector<int>& next_block, std::vector<int>& match_list);
 };
 
 }   
