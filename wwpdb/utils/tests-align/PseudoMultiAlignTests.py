@@ -139,12 +139,13 @@ class PseudoMultiAlignTest(object):
         #
         return sL
 
+
 class PseudoMultiAlignUnitTest(unittest.TestCase):
     def testRun(self):
         pM = PseudoMultiAlignTest()
         pM.runTest1()
         pM.runTest2()
-        
+
 
 def __main():  # pragma: no cover
     pM = PseudoMultiAlignTest()
