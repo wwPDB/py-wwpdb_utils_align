@@ -126,7 +126,7 @@ void PseudoMultiAlign::addAlignSequenceWithLinkageAndRange(const std::vector<std
        std::vector<std::string> embed_seqs;
        std::vector<int> auth_indices, embed_linkage, relative_numbering;
        _get_seq_index_linkage_info(seqs, embed_seqs, auth_indices, embed_linkage, relative_numbering);
-       _multiple_alignment(embed_seqs, auth_indices, linkage, relative_numbering, begin, end);
+       _multiple_alignment(embed_seqs, auth_indices, embed_linkage, relative_numbering, begin, end);
 }
 
 std::vector<std::vector<int> > PseudoMultiAlign::getAlignIndices()
