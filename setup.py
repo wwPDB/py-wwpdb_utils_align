@@ -10,7 +10,6 @@ import re
 import subprocess
 import sys
 import io
-from distutils.version import LooseVersion
 
 from setuptools import Extension, find_packages, setup
 from setuptools.command.build_ext import build_ext
@@ -31,8 +30,10 @@ class CMakeBuild(build_ext):
             raise RuntimeError("CMake must be installed to build the following extensions: " + ", ".join(e.name for e in self.extensions))
 
         if platform.system() == "Windows":
-            cmakeVersion = LooseVersion(re.search(r"version\s*([\d.]+)", out.decode()).group(1))
-            if cmakeVersion < "3.1.0":
+            cml = re.search(r"version\s*([\d.]+)", out.decode()).group(1).split(".")
+            major = int(cml[0])
+            minor = int(cml[1])
+            if major < 3 or (major == 3 and minor < 1):
                 raise RuntimeError("CMake >= 3.1.0 is required on Windows")
 
         for ext in self.extensions:
@@ -82,7 +83,7 @@ class CMakeBuild(build_ext):
 
         if platform.system() == "Windows":
             cmakeArgs += ["-DCMAKE_LIBRARY_OUTPUT_DIRECTORY_{}={}".format(cfg.upper(), extdir)]
-            if sys.maxsize > 2 ** 32:
+            if sys.maxsize > 2**32:
                 cmakeArgs += ["-A", "x64"]
             buildArgs += ["--", "/m"]
         else:
