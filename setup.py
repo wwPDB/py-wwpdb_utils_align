@@ -90,6 +90,12 @@ class CMakeBuild(build_ext):
             cmakeArgs += ["-DCMAKE_BUILD_TYPE=" + cfg]
             buildArgs += ["--", "-j2"]
 
+        if sys.platform.startswith("darwin"):
+            # Cross-compile support for macOS - respect ARCHFLAGS if set (cibuildwheel sets)
+            archs = re.findall(r"-arch (\S+)", os.environ.get("ARCHFLAGS", ""))
+            if archs:
+                cmakeArgs += ["-DCMAKE_OSX_ARCHITECTURES={}".format(";".join(archs))]
+
         env = os.environ.copy()
         env["CXXFLAGS"] = '{} -DVERSION_INFO=\\"{}\\"'.format(env.get("CXXFLAGS", ""), self.distribution.get_version())
         env["RUN_FROM_DISUTILS"] = "yes"
@@ -126,7 +132,7 @@ if not version:
 
 setup(
     name=thisPackage,
-    python_requires=">=3.6",
+    python_requires=">=3.8",
     version=version,
     description="Alignment Library and Tools",
     long_description="See:  README.md",
@@ -143,8 +149,6 @@ setup(
         "License :: OSI Approved :: Apache Software License",
         "Programming Language :: Python",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.6",
-        "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
