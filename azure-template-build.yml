@@ -37,7 +37,7 @@ jobs:
     # Build sdist on linux
     - ${{ if startsWith(parameters.os, 'linux') }}:
       - script: python -m build --sdist --outdir "$(System.DefaultWorkingDirectory)/dist"
-      displayName: "Build source dist"
+        displayName: "Build source dist"
 
     - script: |
         rm -rf "$(System.DefaultWorkingDirectory)/build"
