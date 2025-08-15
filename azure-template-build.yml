@@ -1,0 +1,46 @@
+# File: azure-template-build.yml
+# Date: 15-Aug-2025 ep create to build wheels
+#
+# Update:
+#
+##
+parameters:
+  tox: ""
+  python: ""
+  os: "linux"
+  fixtures: ""
+
+jobs:
+- job: ${{ format('build_{0}_{1}', parameters.tox, parameters.os) }}
+
+  pool:
+    ${{ if eq(parameters.os, 'macos') }}:
+      vmImage: 'macOS-latest'
+    ${{ if eq(parameters.os, 'linux') }}:
+      vmImage: 'ubuntu-latest'
+  dependsOn:
+  - ${{ format('build_test_{0}_{1}', parameters.tox, parameters.os) }}
+  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'), or(eq(variables.isMaster, true), eq(variables.isDevelop, true)))
+  #
+  steps:
+    - task: UsePythonVersion@0
+      inputs:
+        versionSpec: ${{ parameters.python }}
+        addToPath: true
+      displayName: setup python
+
+    # Checkout repository
+    - checkout: self
+      submodules: true
+
+    - script: pip install --upgrade pip cibuildwheel==2.20.0
+      displayName: Install build tools
+
+    - script: |
+        rm -rf "$(System.DefaultWorkingDirectory)/build"
+        export CIBW_ARCHS_MACOS="x86_64 arm64"
+        cibuildwheel --config cibuildwheel.toml --output-dir "$(System.DefaultWorkingDirectory)/dist" .
+      displayName: "Build binary wheels"
+
+    - publish: $(System.DefaultWorkingDirectory)/dist
+      artifact: ${{ format('sw_{0}_{1}', parameters.tox, parameters.os) }}
