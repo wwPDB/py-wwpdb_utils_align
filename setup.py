@@ -11,7 +11,7 @@ import subprocess
 import sys
 import io
 
-from setuptools import Extension, find_packages, setup
+from setuptools import Extension, setup  # find_packages
 from setuptools.command.build_ext import build_ext
 
 
@@ -161,7 +161,9 @@ setup(
     # },
     #
     install_requires=["future", "six"],
-    packages=find_packages(exclude=["wwpdb.utils.tests-align", "tests.*"]),
+    # packages=find_packages(exclude=["wwpdb.utils.tests-align", "tests.*"]),
+    # We are explicit here - as we removed the intermediate __init__.py
+    packages=["wwpdb", "wwpdb.utils", "wwpdb.utils.align"],
     package_data={
         # If any package contains *.md or *.rst ...  files, include them:
         "": ["*.md", "*.rst", "*.txt", "*.h", "*.C", ".c", "*.cpp"],
