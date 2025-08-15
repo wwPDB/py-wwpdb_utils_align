@@ -11,7 +11,7 @@ parameters:
   fixtures: ""
 
 jobs:
-- job: ${{ format('build_wheel_{0}_{1}', parameters.tox, parameters.os) }}
+- job: ${{ format('build_packages_{0}_{1}', parameters.tox, parameters.os) }}
 
   pool:
     ${{ if eq(parameters.os, 'macos') }}:
@@ -50,4 +50,4 @@ jobs:
       displayName: "Listing of installed software"
    #
     - publish: $(System.DefaultWorkingDirectory)/dist
-      artifact: ${{ format('sw_{0}_{1}_wheel', parameters.tox, parameters.os) }}
+      artifact: ${{ format('sw_{0}_{1}_pkg', parameters.tox, parameters.os) }}
