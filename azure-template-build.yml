@@ -37,7 +37,7 @@ jobs:
     - script: |
         rm -rf "$(System.DefaultWorkingDirectory)/build"
         export CIBW_ARCHS_MACOS="x86_64 arm64"
-        cibuildwheel --config cibuildwheel.toml --output-dir "$(System.DefaultWorkingDirectory)/dist" .
+        cibuildwheel --output-dir "$(System.DefaultWorkingDirectory)/dist" .
       displayName: "Build binary wheels"
 
     - publish: $(System.DefaultWorkingDirectory)/dist
