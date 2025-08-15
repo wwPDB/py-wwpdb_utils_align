@@ -31,8 +31,13 @@ jobs:
     - checkout: self
       submodules: true
 
-    - script: pip install --upgrade pip cibuildwheel==2.20.0
+    - script: pip install --upgrade pip cibuildwheel==2.20.0 build
       displayName: Install build tools
+
+    # Build sdist on linux
+    - ${{ if startsWith(parameters.os, 'linux') }}:
+      - script: python -m build --sdist --outdir "$(System.DefaultWorkingDirectory)/dist"
+      displayName: "Build source dist"
 
     - script: |
         rm -rf "$(System.DefaultWorkingDirectory)/build"
@@ -40,5 +45,9 @@ jobs:
         cibuildwheel --output-dir "$(System.DefaultWorkingDirectory)/dist" .
       displayName: "Build binary wheels"
 
+    # Check the install artifacts
+    - script: ls -lR "$(System.DefaultWorkingDirectory)/dist"
+      displayName: "Listing of installed software"
+   #
     - publish: $(System.DefaultWorkingDirectory)/dist
-      artifact: ${{ format('sw_{0}_{1}', parameters.tox, parameters.os) }}
+      artifact: ${{ format('sw_{0}_{1}_wheel', parameters.tox, parameters.os) }}
