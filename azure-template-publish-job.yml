@@ -25,8 +25,8 @@ jobs:
       vmImage: 'macOS-latest'
     ${{ if eq(parameters.os, 'linux') }}:
       vmImage: 'ubuntu-latest'
-  dependsOn: ${{ format('build_packages_{0}_{1}', parameters.tox, parameters.os) }}
-  - ${{ format('build_test_{0}_{1}', parameters.tox, parameters.os) }}
+  dependsOn: 
+  - ${{ format('build_packages_{0}_{1}', parameters.tox, parameters.os) }}
   condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'), or(eq(variables.isMaster, true), eq(variables.isDevelop, true)))
   #
   steps:

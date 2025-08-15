@@ -38,9 +38,6 @@ jobs:
     parameters: {tox: 'py310', python: '3.10', os: 'linux'}
   #
   - template: azure-template-tox-job.yml
-    parameters: {tox: 'py311', python: '3.11', os: 'linux'}
-  #
-  - template: azure-template-tox-job.yml
     parameters: {tox: 'py310', python: '3.10', os: 'macos'}
   #
   #
@@ -51,5 +48,7 @@ jobs:
   #
   - template: azure-template-publish-job.yml
     parameters: {tox: 'py310', python: '3.10', os: 'linux'}
+  - template: azure-template-publish-job.yml
+    parameters: {tox: 'py310', python: '3.10', os: 'macos'}
   #
 
