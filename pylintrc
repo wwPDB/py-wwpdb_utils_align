@@ -11,7 +11,7 @@ ignore=CVS
 
 # Add files or directories matching the regex patterns to the blacklist. The
 # regex matches against base names, not paths.
-ignore-patterns=
+ignore-patterns=alignlib.pyi
 
 # Python code to execute, usually for sys.path manipulation such as
 # pygtk.require().
@@ -572,5 +572,5 @@ min-public-methods=2
 
 # Exceptions that will emit a warning when being caught. Defaults to
 # "BaseException, Exception".
-overgeneral-exceptions=BaseException,
-                       Exception
+#overgeneral-exceptions=BaseException,
+#                       Exception

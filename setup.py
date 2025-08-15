@@ -140,13 +140,12 @@ setup(
     author_email="john.westbrook@rcsb.org",
     url="http://github.com/wwpdb/py-wwpdb_utils_align",
     #
-    license="Apache 2.0",
+    license="Apache-2.0",
     classifiers=[
         "Development Status :: 3 - Alpha",
         # 'Development Status :: 5 - Production/Stable',
         "Intended Audience :: Developers",
         "Natural Language :: English",
-        "License :: OSI Approved :: Apache Software License",
         "Programming Language :: Python",
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.8",
@@ -167,11 +166,10 @@ setup(
     package_data={
         # If any package contains *.md or *.rst ...  files, include them:
         "": ["*.md", "*.rst", "*.txt", "*.h", "*.C", ".c", "*.cpp"],
+        thisPackage: ['py.typed', '*.pyi', '**/*.pyi'],
     },
     #
     #
-    test_suite="wwpdb.utils.tests-align",
-    tests_require=["tox"],
     #
     # Not configured ...
     extras_require={

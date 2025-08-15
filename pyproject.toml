@@ -1,3 +1,10 @@
 [build-system]
 requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
+
+# -------------------------  Mypy disable ---------
+[[tool.mypy.overrides]]
+
+# We are skipping as no stubs provided
+module = ["swwpdb.utils.align.alignlib"]
+ignore_missing_imports = true

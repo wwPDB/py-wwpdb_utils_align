@@ -1,12 +1,14 @@
-import string
+# import string
 import unittest
+from typing import List, Tuple
+
 from wwpdb.utils.align.alignlib import PseudoMultiAlign  # pylint: disable=no-name-in-module,import-error
 
 
 class PseudoMultiAlignTest(object):
-    def __init__(self):
-        self.__authSeq = []
-        self.__coorSeq = []
+    def __init__(self) -> None:
+        self.__authSeq: List[Tuple[str, str]] = []
+        self.__coorSeq: List[Tuple[str, str, str, str]] = []
         # self.__authSeq = [
         #     ( "A", "0" ),
         #     ( "A", "1" ),
@@ -536,14 +538,14 @@ class PseudoMultiAlignTest(object):
             ("SER", "199", "1"),
         ]
 
-    def runTest1(self):
+    def runTest1(self) -> None:
         self.__authSeq = []
         for idx, tupL in enumerate(self.__seq_a):
             self.__authSeq.append((tupL[0], str(idx)))
         #
         self.__coorSeq = []
-        for idx, tupL in enumerate(self.__seq_b):
-            self.__coorSeq.append((tupL[0], str(idx), tupL[2], tupL[1]))
+        for idx, tupBL in enumerate(self.__seq_b):
+            self.__coorSeq.append((tupBL[0], str(idx), tupBL[2], tupBL[1]))
         #
         pA = PseudoMultiAlign()
         pA.setAuthSequence(self.__authSeq)
@@ -559,44 +561,44 @@ class PseudoMultiAlignTest(object):
             print("%3d %3s (%3d) %s %3s (%3d)" % (idx, alignSeqList[idx][0], alignIdx[0], sym, alignSeqList[idx][1], alignIdx[1]))
         #
 
-    def runTest2(self):
-        pA = PseudoMultiAlign()
-        pA.setRefScore()
-        pA.setAuthSequence(self.__toList(self.__seqA))  # pylint: disable=no-member
-        pA.addAlignSequence(self.__toList(self.__seqB))  # pylint: disable=no-member
-        alignIndexList = pA.getAlignIndices()
-        alignSeqList = pA.getAlignSequences()
-        #
-        print("")
-        for idx, alignIdx in enumerate(alignIndexList):
-            sym = "---"
-            if (alignSeqList[idx][0] != ".") and (alignSeqList[idx][0] == alignSeqList[idx][1]):
-                sym = "==="
-            #
-            print("%3d %3s (%3d) %s %3s (%3d)" % (idx, alignSeqList[idx][0], alignIdx[0], sym, alignSeqList[idx][1], alignIdx[1]))
-        #
+    # def runTest2(self):
+    #     pA = PseudoMultiAlign()
+    #     pA.setRefScore()
+    #     pA.setAuthSequence(self.__toList(self.__seqA))  # pylint: disable=no-member
+    #     pA.addAlignSequence(self.__toList(self.__seqB))  # pylint: disable=no-member
+    #     alignIndexList = pA.getAlignIndices()
+    #     alignSeqList = pA.getAlignSequences()
+    #     #
+    #     print("")
+    #     for idx, alignIdx in enumerate(alignIndexList):
+    #         sym = "---"
+    #         if (alignSeqList[idx][0] != ".") and (alignSeqList[idx][0] == alignSeqList[idx][1]):
+    #             sym = "==="
+    #         #
+    #         print("%3d %3s (%3d) %s %3s (%3d)" % (idx, alignSeqList[idx][0], alignIdx[0], sym, alignSeqList[idx][1], alignIdx[1]))
+    #     #
 
-    def __toList(self, strIn):
-        sL = []
-        count = 0
-        for ss in strIn:
-            if ss in string.whitespace:
-                continue
-            #
-            sL.append((ss, str(count)))
-            count += 1
-        #
-        return sL
+    # def __toList(self, strIn: str) -> List[Tuple[str, str]]:
+    #     sL = []
+    #     count = 0
+    #     for ss in strIn:
+    #         if ss in string.whitespace:
+    #             continue
+    #         #
+    #         sL.append((ss, str(count)))
+    #         count += 1
+    #     #
+    #     return sL
 
 
 class PseudoMultiAlignUnitTest(unittest.TestCase):
-    def testRun(self):
+    def testRun(self) -> None:
         pM = PseudoMultiAlignTest()
         pM.runTest1()
         # pM.runTest2()
 
 
-def __main():  # pragma: no cover
+def __main() -> None:  # pragma: no cover
     pM = PseudoMultiAlignTest()
     pM.runTest1()
     # pM.runTest2()
