@@ -11,16 +11,14 @@ parameters:
   fixtures: ""
 
 jobs:
-- job: ${{ format('build_{0}_{1}', parameters.tox, parameters.os) }}
+- job: ${{ format('build_wheel_{0}_{1}', parameters.tox, parameters.os) }}
 
   pool:
     ${{ if eq(parameters.os, 'macos') }}:
       vmImage: 'macOS-latest'
     ${{ if eq(parameters.os, 'linux') }}:
       vmImage: 'ubuntu-latest'
-  dependsOn:
-  - ${{ format('build_test_{0}_{1}', parameters.tox, parameters.os) }}
-  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'), or(eq(variables.isMaster, true), eq(variables.isDevelop, true)))
+  dependsOn: ${{ format('build_test_{0}_{1}', parameters.tox, parameters.os) }}
   #
   steps:
     - task: UsePythonVersion@0
