@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8.12)
+cmake_minimum_required(VERSION 3.15...4.0)
 project(alignlib)
 #
 # File: CMakeLists.txt -
@@ -8,9 +8,9 @@ project(alignlib)
 #
 # C++ wrappers using alignment utilities
 #
-if (POLICY CMP0048)
-  # cmake warns if loaded from a min-3.0-required parent dir, so silence the warning:
-  cmake_policy(SET CMP0048 NEW)
+if (POLICY CMP0148)
+  # cmake warns cmake > 3.12 still using FindPythonInterp
+  cmake_policy(SET CMP0148 OLD)
 endif()
 #
 #

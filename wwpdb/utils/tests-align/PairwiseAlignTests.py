@@ -24,7 +24,7 @@ logger.setLevel(logging.INFO)
 
 
 class PairwiseAlignTests(unittest.TestCase):
-    def setUp(self):
+    def setUp(self) -> None:
         self.__verbose = True
         sE = SequenceExamples()
         self.seqRef3L = sE.getRefSequence3List("A")
@@ -37,10 +37,10 @@ class PairwiseAlignTests(unittest.TestCase):
             self.sTests[tt] = sE.getAuthSequenceListTest("A")
         #
 
-    def tearDown(self):
+    def tearDown(self) -> None:
         pass
 
-    def testAlign1(self):
+    def testAlign1(self) -> None:
         """Run internal alignment test embedded in the class -  This is a basic santity check."""
         logger.info(" -------------------------")
         try:
@@ -50,7 +50,7 @@ class PairwiseAlignTests(unittest.TestCase):
             logger.exception("Failing with %s", str(e))
             self.fail()
 
-    def testAlign2(self):
+    def testAlign2(self) -> None:
         """Run author vs reference sequence alignment returning a copy of the alignment
         via getAlignment() -
         """
@@ -79,7 +79,7 @@ class PairwiseAlignTests(unittest.TestCase):
             logger.exception("Failing with %s", str(e))
             self.fail()
 
-    def testAlign3(self):
+    def testAlign3(self) -> None:
         """Consensus alignment for author and reference sequences.
         Returning the name of any sequence that is not part of the consensus.
         """
@@ -110,7 +110,7 @@ class PairwiseAlignTests(unittest.TestCase):
             logger.exception("Failing with %s", str(e))
             self.fail()
 
-    def testAlign4(self):
+    def testAlign4(self) -> None:
         """Consensus alignment for reference and 5 test sequences"""
         logger.info("------------------------")
         try:
@@ -130,7 +130,7 @@ class PairwiseAlignTests(unittest.TestCase):
             logger.exception("Failing with %s", str(e))
             self.fail()
 
-    def testAlign5(self):
+    def testAlign5(self) -> None:
         """Consensus alignment for reference and 5 test sequences"""
         logger.info("------------------------ ")
         try:
@@ -151,7 +151,7 @@ class PairwiseAlignTests(unittest.TestCase):
             self.fail()
 
 
-def pairAlignSuite():
+def pairAlignSuite() -> unittest.TestSuite:
     suiteSelect = unittest.TestSuite()
     suiteSelect.addTest(PairwiseAlignTests("testAlign1"))
     suiteSelect.addTest(PairwiseAlignTests("testAlign2"))

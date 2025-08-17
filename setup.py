@@ -11,7 +11,7 @@ import subprocess
 import sys
 import io
 
-from setuptools import Extension, find_packages, setup
+from setuptools import Extension, setup  # find_packages
 from setuptools.command.build_ext import build_ext
 
 
@@ -90,6 +90,12 @@ class CMakeBuild(build_ext):
             cmakeArgs += ["-DCMAKE_BUILD_TYPE=" + cfg]
             buildArgs += ["--", "-j2"]
 
+        if sys.platform.startswith("darwin"):
+            # Cross-compile support for macOS - respect ARCHFLAGS if set (cibuildwheel sets)
+            archs = re.findall(r"-arch (\S+)", os.environ.get("ARCHFLAGS", ""))
+            if archs:
+                cmakeArgs += ["-DCMAKE_OSX_ARCHITECTURES={}".format(";".join(archs))]
+
         env = os.environ.copy()
         env["CXXFLAGS"] = '{} -DVERSION_INFO=\\"{}\\"'.format(env.get("CXXFLAGS", ""), self.distribution.get_version())
         env["RUN_FROM_DISUTILS"] = "yes"
@@ -126,7 +132,7 @@ if not version:
 
 setup(
     name=thisPackage,
-    python_requires=">=3.6",
+    python_requires=">=3.8",
     version=version,
     description="Alignment Library and Tools",
     long_description="See:  README.md",
@@ -134,17 +140,14 @@ setup(
     author_email="john.westbrook@rcsb.org",
     url="http://github.com/wwpdb/py-wwpdb_utils_align",
     #
-    license="Apache 2.0",
+    license="Apache-2.0",
     classifiers=[
         "Development Status :: 3 - Alpha",
         # 'Development Status :: 5 - Production/Stable',
         "Intended Audience :: Developers",
         "Natural Language :: English",
-        "License :: OSI Approved :: Apache Software License",
         "Programming Language :: Python",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.6",
-        "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
@@ -157,15 +160,16 @@ setup(
     # },
     #
     install_requires=["future", "six"],
-    packages=find_packages(exclude=["wwpdb.utils.tests-align", "tests.*"]),
+    # packages=find_packages(exclude=["wwpdb.utils.tests-align", "tests.*"]),
+    # We are explicit here - as we removed the intermediate __init__.py
+    packages=["wwpdb", "wwpdb.utils", "wwpdb.utils.align"],
     package_data={
         # If any package contains *.md or *.rst ...  files, include them:
         "": ["*.md", "*.rst", "*.txt", "*.h", "*.C", ".c", "*.cpp"],
+        thisPackage: ['py.typed', '*.pyi', '**/*.pyi'],
     },
     #
     #
-    test_suite="wwpdb.utils.tests-align",
-    tests_require=["tox"],
     #
     # Not configured ...
     extras_require={
