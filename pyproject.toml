@@ -12,8 +12,12 @@ skip = ["pp*", "*-musllinux*"]
 
 [tool.cibuildwheel.linux]
 before-all = "yum -y install cmake"
-#test-command = 'python -c "from mmcif.io.IoAdapterCore import IoAdapterCore as IoAdapter"'
+test-command = 'python -c "from from wwpdb.utils.align.alignlib import PairwiseAlign"'
+
+[tool.cibuildwheel.macos]
+archs = ["x86_64", "arm64"]
+
 
 [[tool.cibuildwheel.overrides]]
 select = "*-musllinux*"
-before-all = "apk add flex bison cmake"
+before-all = "apk add cmake"
