@@ -31,7 +31,7 @@ jobs:
     - checkout: self
       submodules: true
 
-    - script: pip install --upgrade pip cibuildwheel==2.20.0 build
+    - script: pip install --upgrade pip cibuildwheel==3.2.1 build
       displayName: Install build tools
 
     # Build sdist on linux
