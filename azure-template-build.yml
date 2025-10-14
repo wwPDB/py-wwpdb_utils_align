@@ -39,10 +39,9 @@ jobs:
       - script: python -m build --sdist --outdir "$(System.DefaultWorkingDirectory)/dist"
         displayName: "Build source dist"
 
-    # We use the manylinux2014 to ensure compatibility with centos-7 for now.  The 2_17 glibc
     - script: |
         rm -rf "$(System.DefaultWorkingDirectory)/build"
-        export CIBW_MANYLINUX_X86_64_IMAGE="manylinux2014" ; cibuildwheel --output-dir "$(System.DefaultWorkingDirectory)/dist" .
+        cibuildwheel --output-dir "$(System.DefaultWorkingDirectory)/dist" .
       displayName: "Build binary wheels"
 
     # Check the install artifacts
