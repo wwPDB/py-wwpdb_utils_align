@@ -30,5 +30,4 @@ before-all = "apk add cmake"
 # We still require glibc 2.27 for centos-7 for python 3.8
 select = "cp3?-*" # This targets CPython 3.x (e.g., 3.6, 3.7, 3.8, 3.9)
 manylinux-x86_64-image = "manylinux2014"
-    manylinux-i686-image = "manylinux2010"
 
