@@ -21,3 +21,13 @@ archs = ["x86_64", "arm64"]
 [[tool.cibuildwheel.overrides]]
 select = "*-musllinux*"
 before-all = "apk add cmake"
+
+
+#[tool.cibuildwheel]
+#manylinux-x86_64-image = "manylinux2014"
+
+[[tool.cibuildwheel.overrides]]
+# We still require glibc 2.27 for centos-7 for python 3.8
+select = "cp3?-*" # This targets CPython 3.x (e.g., 3.6, 3.7, 3.8, 3.9)
+manylinux-x86_64-image = "manylinux2014"
+
