@@ -31,9 +31,9 @@ class SequenceExamples(SequenceReferenceData):
 
     def __init__(self, idCode: str = "3IJE") -> None:
 
-        self.idCode = idCode
+        self.idCode: str = idCode
 
-        self.aaList = [
+        self.aaList: List[str] = [
             "ALA",
             "ARG",
             "ASN",
@@ -59,14 +59,14 @@ class SequenceExamples(SequenceReferenceData):
             "UNK",
         ]
 
-        self.seqIdList = ["A", "B"]
+        self.seqIdList: List[str] = ["A", "B"]
 
         #
         # DBREF  3IJE A    1   967  UNP    P06756   ITAV_HUMAN      31    997
         # DBREF  3IJE B    1   695  UNP    P05106   ITB3_HUMAN      27    721
         # >sp|P06756|ITAV_HUMAN Integrin alpha-V OS=Homo sapiens GN=ITGAV PE=1 SV=2
         #
-        self.refSequenceA = """MAFPPRRRLRLGPRGLPLLLSGLLLPLCRAFNLDVDSPAEYSGPEGSYFGFAVDFFVPSA
+        self.refSequenceA: str = """MAFPPRRRLRLGPRGLPLLLSGLLLPLCRAFNLDVDSPAEYSGPEGSYFGFAVDFFVPSA
         SSRMFLLVGAPKANTTQPGIVEGGQVLKCDWSSTRRCQPIEFDATGNRDYAKDDPLEFKS
         HQWFGASVRSKQDKILACAPLYHWRTEMKQEREPVGTCFLQDGTKTVEYAPCRSQDIDAD
         GQGFCQGGFSIDFTKADRVLLGGPGSFYWQGQLISDQVAEIVSKYDPNVYSIKYNNQLAT
@@ -86,7 +86,7 @@ class SequenceExamples(SequenceReferenceData):
         FKRVRPPQEEQEREQLQPHENGEGNSET"""
         #
         # >sp|P05106|ITB3_HUMAN Integrin beta-3 OS=Homo sapiens GN=ITGB3 PE=1 SV=2
-        self.refSequenceB = """
+        self.refSequenceB: str = """
         MRARPRPRPLWATVLALGALAGVGVGGPNICTTRGVSSCQQCLAVSPMCAWCSDEALPLG
         SPRCDLKENLLKDNCAPESIEFPVSEARVLEDRPLSDKGSGDSSQVTQVSPQRIALRLRP
         DDSKNFSIQVRQVEDYPVDIYYLMDLSYSMKDDLWSIQNLGTKLATQMRKLTSNLRIGFG
@@ -102,7 +102,7 @@ class SequenceExamples(SequenceReferenceData):
         VVLLSVMGAILLIGLAALLIWKLLITIHDRKEFAKFEEERARAKWDTANNPLYKEATSTF
         TNITYRGT"""
 
-        self.authSequenceA = """PHE ASN LEU ASP VAL ASP SER PRO ALA GLU TYR SER GLY
+        self.authSequenceA: str = """PHE ASN LEU ASP VAL ASP SER PRO ALA GLU TYR SER GLY
         PRO GLU GLY SER TYR PHE GLY PHE ALA VAL ASP PHE PHE
         VAL PRO SER ALA SER SER ARG MET PHE LEU LEU VAL GLY
         ALA PRO LYS ALA ASN THR THR GLN PRO GLY ILE VAL GLU
@@ -178,7 +178,7 @@ class SequenceExamples(SequenceReferenceData):
         ASN VAL THR TRP GLY ILE GLN PRO ALA PRO MET PRO VAL
         PRO VAL TRP VAL ILE"""
         #
-        self.authSequenceB = """
+        self.authSequenceB: str = """
         GLY PRO ASN ILE CYS THR THR ARG GLY VAL SER SER CYS
         GLN GLN CYS LEU ALA VAL SER PRO MET CYS ALA TRP CYS
         SER ASP GLU ALA LEU PRO LEU GLY SER PRO ARG CYS ASP
@@ -234,7 +234,7 @@ class SequenceExamples(SequenceReferenceData):
         SER ILE LEU TYR VAL VAL GLU GLU PRO GLU CYS PRO LYS
         GLY PRO ASP ILE LEU VAL"""
 
-        self.xyzSequenceA = [
+        self.xyzSequenceA: List[Tuple[str, str]] = [
             ("PHE", "1"),
             ("ASN", "2"),
             ("LEU", "3"),
@@ -1174,7 +1174,7 @@ class SequenceExamples(SequenceReferenceData):
             ("VAL", "966"),
             ("ILE", "967"),
         ]
-        self.xyzSequenceB = [
+        self.xyzSequenceB: List[Tuple[str, str]] = [
             ("GLY", "1"),
             ("PRO", "2"),
             ("ASN", "3"),
@@ -1942,7 +1942,7 @@ class SequenceExamples(SequenceReferenceData):
             pass
 
     def getAuthSequenceWithIndexList(self, chainId: str) -> List[Tuple[str, str]]:
-        sL = []
+        sL: List[Tuple[str, str]] = []
         ir = 0
         if chainId == "A":
             for aa in self.authSequenceA.split():
@@ -1966,7 +1966,7 @@ class SequenceExamples(SequenceReferenceData):
             return []
 
     def toList(self, strIn: str) -> List[str]:
-        sL = []
+        sL: List[str] = []
         for ss in strIn:
             if ss in string.whitespace:
                 continue
@@ -1982,7 +1982,7 @@ class SequenceExamples(SequenceReferenceData):
             return []
 
     def getRefSequenceWithIndexList(self, chainId: str) -> List[Tuple[str, str]]:
-        sL = []
+        sL: List[Tuple[str, str]] = []
         ir = 0
         if chainId == "A":
             for aa in self.__cnv1To3List(self.toList(self.refSequenceA.strip())):
@@ -1998,7 +1998,7 @@ class SequenceExamples(SequenceReferenceData):
         return sL
 
     def __cnv1To3List(self, s1L: List[str]) -> List[str]:
-        s3L = []
+        s3L: List[str] = []
         for r1 in s1L:
             if r1 in self._monDict1:
                 s3L.append(self._monDict1[r1])

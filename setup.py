@@ -160,7 +160,7 @@ setup(
     # },
     #
     install_requires=[],
-    # packages=find_packages(exclude=["wwpdb.utils.tests-align", "tests.*"]),
+    # packages=find_packages(exclude=["wwpdb.utils.tests_align", "tests.*"]),
     # We are explicit here - as we removed the intermediate __init__.py
     packages=["wwpdb", "wwpdb.utils", "wwpdb.utils.align"],
     package_data={
