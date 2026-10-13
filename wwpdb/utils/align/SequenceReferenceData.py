@@ -6,13 +6,15 @@ Version: .001 jdw
 
 """
 
+from typing import ClassVar, Dict, List
+
 
 class SequenceReferenceData(object):
     """This class contains reference data for identifying standard polymer types and
     mapping residue nomenclature.
     """
 
-    _polymerEntityTypes = [
+    _polymerEntityTypes: ClassVar[List[str]] = [
         "polypeptide(D)",
         "polypeptide(L)",
         "polydeoxyribonucleotide",
@@ -24,9 +26,9 @@ class SequenceReferenceData(object):
         "other",
     ]
 
-    _entityTypes = ["polymer", "non-polymer", "macrolide", "water"]
+    _entityTypes: ClassVar[List[str]] = ["polymer", "non-polymer", "macrolide", "water"]
 
-    _monDict3 = {
+    _monDict3: ClassVar[Dict[str, str]] = {
         "ALA": "A",
         "ARG": "R",
         "ASN": "N",
@@ -64,7 +66,7 @@ class SequenceReferenceData(object):
         "UNK": "X",
     }
 
-    _monDict1 = {
+    _monDict1: ClassVar[Dict[str, str]] = {
         "A": "ALA",
         "R": "ARG",
         "N": "ASN",
